@@ -15,11 +15,10 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="IMG_4426.jpeg" />
 
-  <!-- Tailwind CDN (requisito) -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Fondo suave tipo papel */
     .paper {
       background:
         radial-gradient(1200px 600px at 20% 10%, rgba(124, 90, 58, .10), transparent 60%),
@@ -34,101 +33,12 @@
   </style>
 
   <script>
-    /**
-     * ✅ IMPORTANTE:
-     * Pega aquí el endpoint que me darás al final.
-     * Ejemplo: const FORM_ENDPOINT = "https://tu-dominio.com/api/contacto";
-     */
-    const FORM_ENDPOINT = "REEMPLAZA_AQUI_TU_ENDPOINT";
-
-    function setStatus(type, message) {
-      const box = document.getElementById("formStatus");
-      box.className = "mt-4 rounded-xl border p-4 text-sm";
-      if (type === "success") {
-        box.classList.add("border-emerald-200", "bg-emerald-50", "text-emerald-900");
-      } else if (type === "error") {
-        box.classList.add("border-rose-200", "bg-rose-50", "text-rose-900");
-      } else {
-        box.classList.add("border-stone-200", "bg-white", "text-stone-800");
-      }
-      box.textContent = message;
-      box.hidden = false;
-    }
-
-    async function handleSubmit(e) {
-      e.preventDefault();
-
-      if (!FORM_ENDPOINT || FORM_ENDPOINT.includes("REEMPLAZA_AQUI")) {
-        setStatus("error", "Falta configurar el endpoint del formulario. Pega tu endpoint en la variable FORM_ENDPOINT dentro de este archivo.");
-        return;
-      }
-
-      const form = e.target;
-      const data = {
-        nombre: form.nombre.value.trim(),
-        email: form.email.value.trim(),
-        asunto: form.asunto.value.trim(),
-        mensaje: form.mensaje.value.trim(),
-        consentimiento: form.consentimiento.checked
-      };
-
-      if (!data.nombre || !data.email || !data.asunto || !data.mensaje) {
-        setStatus("error", "Por favor completa todos los campos obligatorios.");
-        return;
-      }
-      if (!data.consentimiento) {
-        setStatus("error", "Necesitas aceptar el aviso de privacidad para enviar el mensaje.");
-        return;
-      }
-
-      const btn = document.getElementById("submitBtn");
-      const prev = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = "Enviando…";
-
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        if (!res.ok) {
-          const txt = await res.text().catch(() => "");
-          throw new Error(txt || "No se pudo enviar el mensaje.");
-        }
-
-        form.reset();
-        setStatus("success", "¡Listo! Tu mensaje se envió correctamente. Te responderé lo antes posible.");
-      } catch (err) {
-        setStatus("error", "Hubo un problema al enviar el mensaje. Intenta de nuevo o escríbeme directo a: loreliojeda@gmail.com");
-      } finally {
-        btn.disabled = false;
-        btn.textContent = prev;
-      }
-    }
-
     function goToId(id) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   </script>
-
-
-
-
-
-
 </head>
-
-
-
-
-
-
-
-
-
 
 <body class="paper text-stone-800">
   <!-- Header -->
@@ -158,7 +68,6 @@
           Escribirme
         </button>
 
-        <!-- CTA a Amazon -->
         <a
           class="inline-flex rounded-xl bg-stone-900 px-4 py-2 text-sm font-medium text-white hover:bg-stone-800"
           href="https://amzn.eu/d/ihTLJit"
@@ -185,15 +94,12 @@
             Sin mapa y con patas
           </h1>
 
-          <!-- ✅ TEXTO ACTUALIZADO -->
-         <p class="mt-4 max-w-2xl text-base leading-relaxed text-stone-700 sm:text-lg">
-  <strong>Memorias de una peregrina.</strong><br />
-  El Camino de Santiago hecho en familia: Pablo y yo, acompañados por Chila, nuestra perrita peregrina y guía del camino.
-</p>
-
+          <p class="mt-4 max-w-2xl text-base leading-relaxed text-stone-700 sm:text-lg">
+            <strong>Memorias de una peregrina.</strong><br />
+            El Camino de Santiago hecho en familia: Pablo y yo, acompañados por Chila, nuestra perrita peregrina y guía del camino.
+          </p>
 
           <div id="cta" class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <!-- ✅ Comprar en Amazon -->
             <a
               href="https://amzn.eu/d/ihTLJit"
               target="_blank"
@@ -245,190 +151,118 @@
 
           <div class="mt-4 grid grid-cols-2 gap-4">
             <div class="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-              <img
-                src="IMG_4220.jpg"
-                alt="Foto con el libro en exterior"
-                class="h-40 w-full object-cover"
-                loading="lazy"
-              />
+              <img src="IMG_4220.jpg" alt="Foto con el libro en exterior" class="h-40 w-full object-cover" loading="lazy" />
             </div>
             <div class="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-              <img
-                src="IMG_3490.jpg"
-                alt="Lectura en tablet con taza"
-                class="h-40 w-full object-cover"
-                loading="lazy"
-              />
+              <img src="IMG_3490.jpg" alt="Lectura en tablet con taza" class="h-40 w-full object-cover" loading="lazy" />
             </div>
           </div>
-
-        
         </div>
       </div>
     </div>
   </section>
 
   <!-- Sobre el libro -->
- <section id="libro" class="border-t border-stone-200/70">
-  <div class="mx-auto max-w-6xl px-4 py-12">
-    <div class="grid gap-10 lg:grid-cols-12">
-      
-      <!-- Texto principal -->
-      <div class="lg:col-span-5">
-        <h2 class="text-2xl font-semibold tracking-tight text-stone-900">
-          ¿De qué se trata?
-        </h2>
+  <section id="libro" class="border-t border-stone-200/70">
+    <div class="mx-auto max-w-6xl px-4 py-12">
+      <div class="grid gap-10 lg:grid-cols-12">
 
-        <p class="mt-4 text-stone-700 leading-relaxed">
-          Son las memorias de una peregrina a mi yo del futuro.
-        </p>
+        <div class="lg:col-span-5">
+          <h2 class="text-2xl font-semibold tracking-tight text-stone-900">¿De qué se trata?</h2>
 
-        <p class="mt-4 text-stone-700 leading-relaxed">
-          Este libro nació como un regalo para mi yo del futuro.  
-          Para no olvidar lo vivido en el Camino de Santiago. Para recordar los pasos,
-          las dudas y los momentos de magia que compartí con mi esposo y con Chila,
-          nuestra perra peregrina.
-        </p>
+          <p class="mt-4 text-stone-700 leading-relaxed">Son las memorias de una peregrina a mi yo del futuro.</p>
 
-        <p class="mt-4 text-stone-700 leading-relaxed">
-          En cada cuesta empinada, en cada momento de agotamiento, me encontré con
-          preguntas y reflexiones que, de alguna manera, siguen marcando mi vida.
-          Es la historia de un viaje hecho en familia, lleno de aprendizajes,
-          silencios y pequeñas victorias que solo el Camino puede ofrecer.
-        </p>
-
-        <p class="mt-4 text-stone-700 leading-relaxed">
-          Este libro es un llamado a todos aquellos que, como yo, se atreven a caminar
-          sin tener claro el destino, pero con la esperanza de encontrarse a sí mismos
-          en el proceso. Una invitación a quienes desean comprender que, aunque el camino
-          no siempre sea fácil, cada paso hacia adelante tiene un propósito.
-        </p>
-
-        <p class="mt-4 text-stone-700 leading-relaxed italic">
-          Vivido paso a paso.
-        </p>
-
-        <!-- Ideal para ti -->
-        <div class="mt-8 rounded-2xl border border-stone-200 bg-white p-5">
-          <p class="text-sm font-medium text-stone-900">
-            Ideal para ti si…
+          <p class="mt-4 text-stone-700 leading-relaxed">
+            Este libro nació como un regalo para mi yo del futuro.
+            Para no olvidar lo vivido en el Camino de Santiago. Para recordar los pasos,
+            las dudas y los momentos de magia que compartí con mi esposo y con Chila,
+            nuestra perra peregrina.
           </p>
 
-          <ul class="mt-4 space-y-3 text-sm text-stone-700">
-            <li class="flex gap-2">
-              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-              Te gustan historias honestas, sin artilugios.
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-              Buscas inspiración suave, sin sermones.
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-              Amas a los perros y sabes lo que significan en un viaje.
-            </li>
-            <li class="flex gap-2">
-              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-              Te gusta la naturaleza y descubrir mundos nuevos.
-            </li>
-          </ul>
+          <p class="mt-4 text-stone-700 leading-relaxed">
+            En cada cuesta empinada, en cada momento de agotamiento, me encontré con
+            preguntas y reflexiones que, de alguna manera, siguen marcando mi vida.
+            Es la historia de un viaje hecho en familia, lleno de aprendizajes,
+            silencios y pequeñas victorias que solo el Camino puede ofrecer.
+          </p>
+
+          <p class="mt-4 text-stone-700 leading-relaxed">
+            Este libro es un llamado a todos aquellos que, como yo, se atreven a caminar
+            sin tener claro el destino, pero con la esperanza de encontrarse a sí mismos
+            en el proceso.
+          </p>
+
+          <p class="mt-4 text-stone-700 leading-relaxed italic">Vivido paso a paso.</p>
+
+          <div class="mt-8 rounded-2xl border border-stone-200 bg-white p-5">
+            <p class="text-sm font-medium text-stone-900">Ideal para ti si…</p>
+            <ul class="mt-4 space-y-3 text-sm text-stone-700">
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Te gustan historias honestas, sin artilugios.</li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Buscas inspiración suave, sin sermones.</li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Amas a los perros y sabes lo que significan en un viaje.</li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Te gusta la naturaleza y descubrir mundos nuevos.</li>
+            </ul>
+          </div>
         </div>
+
+        <div class="lg:col-span-7 flex">
+          <div class="relative w-full h-full overflow-hidden rounded-3xl border border-stone-200 shadow-sm">
+            <img
+              src="CONTRA%20PORTADA%20Sin%20Mapa%20y%20Con%20Patas.png"
+              alt="El logro no siempre está en llegar, sino en disfrutar del camino"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-black/35"></div>
+
+            <div class="relative z-10 flex h-full items-center justify-center px-6">
+              <p
+                class="max-w-lg text-center text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight text-white italic"
+                style="-webkit-text-stroke: 0.5px rgba(0,0,0,0.7); text-shadow: 0 2px 10px rgba(0,0,0,0.35);"
+              >
+                El logro no siempre está en llegar…<br />
+                sino en disfrutar del camino.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
       </div>
-
-      <!-- Frase guía -->
-<div class="lg:col-span-7 flex">
-  <div class="relative w-full h-full overflow-hidden rounded-3xl border border-stone-200 shadow-sm">
-
-    <!-- Imagen de fondo -->
-    <img
-      src="CONTRA PORTADA Sin Mapa y Con Patas.png"
-      alt="El logro no siempre está en llegar, sino en disfrutar del camino"
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="lazy"
-    />
-
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/35"></div>
-
-    <!-- Frase guía -->
-    <div class="relative z-10 flex h-full items-center justify-center px-6">
-      <p
-        class="max-w-lg text-center text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight text-white italic"
-        style="-webkit-text-stroke: 0.5px rgba(0,0,0,0.7); text-shadow: 0 2px 10px rgba(0,0,0,0.35);"
-      >
-        El logro no siempre está en llegar…<br />
-        sino en disfrutar del camino.
-      </p>
     </div>
-
-  </div>
-</div>
-
-
-
-
-
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Galería -->
-<section id="galeria" class="border-t border-stone-200/70">
-  <div class="mx-auto max-w-6xl px-4 py-12">
-    <div class="flex items-end justify-between gap-4">
+  <section id="galeria" class="border-t border-stone-200/70">
+    <div class="mx-auto max-w-6xl px-4 py-12">
       <div>
         <h2 class="text-2xl font-semibold tracking-tight text-stone-900">Galería</h2>
-        <p class="mt-2 text-stone-600">
-          Momentos reales del libro y del camino, en familia.
-        </p>
+        <p class="mt-2 text-stone-600">Momentos reales del libro y del camino, en familia.</p>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
+        <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-7">
+          <img src="FOTO%20LIFESTYLE.jpeg" alt="El libro Sin mapa y con patas junto al cuaderno del Camino"
+               class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" loading="lazy" />
+        </figure>
+
+        <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-5">
+          <img src="Libro%20abierto.jpeg" alt="Libro Sin mapa y con patas abierto"
+               class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" loading="lazy" />
+        </figure>
+
+        <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-6">
+          <img src="Libro%20en%20el%20parque.jpeg" alt="Autora sosteniendo el libro Sin mapa y con patas en el parque"
+               class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" loading="lazy" />
+        </figure>
+
+        <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-6">
+          <img src="Libros%20y%20Chila.jpeg" alt="Chila rodeada de ejemplares de Sin mapa y con patas"
+               class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" loading="lazy" />
+        </figure>
       </div>
     </div>
-
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
-      <!-- Imagen 1 (horizontal grande) -->
-      <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-7">
-        <img
-          src="FOTO LIFESTYLE.jpeg"
-          alt="El libro Sin mapa y con patas junto al cuaderno del Camino"
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          loading="lazy"
-        />
-      </figure>
-
-      <!-- Imagen 2 (vertical) -->
-      <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-5">
-        <img
-          src="Libro abierto.jpeg"
-          alt="Libro Sin mapa y con patas abierto"
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          loading="lazy"
-        />
-      </figure>
-
-      <!-- Imagen 3 -->
-      <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-6">
-        <img
-          src="Libro en el parque.jpeg"
-          alt="Autora sosteniendo el libro Sin mapa y con patas en el parque"
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          loading="lazy"
-        />
-      </figure>
-
-      <!-- Imagen 4 -->
-      <figure class="group relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm lg:col-span-6">
-        <img
-          src="Libros y Chila.jpeg"
-          alt="Chila rodeada de ejemplares de Sin mapa y con patas"
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          loading="lazy"
-        />
-      </figure>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Autora -->
   <section id="autora" class="border-t border-stone-200/70">
@@ -436,16 +270,18 @@
       <div class="grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <div class="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
-            <img src="Foto Autora.jpeg" alt="Foto de la autora" class="h-[420px] w-full object-cover" loading="lazy" />
+            <img src="Foto%20Autora.jpeg" alt="Foto de la autora" class="h-[420px] w-full object-cover" loading="lazy" />
           </div>
         </div>
 
         <div class="lg:col-span-7">
           <h2 class="text-2xl font-semibold tracking-tight text-stone-900">Sobre la autora</h2>
+
           <p class="mt-3 text-stone-700 leading-relaxed">
             Soy <strong>Lorelí Ojeda Pulido</strong>. Escribí este libro para no olvidar lo vivido, y porque hay historias
             que merecen quedarse: con lluvia, con risa, con cansancio… y con patas.
           </p>
+
           <p class="mt-3 text-stone-700 leading-relaxed">
             Si quieres invitarme a una presentación, evento, entrevista o colaboración, aquí abajo puedes escribirme.
           </p>
@@ -461,140 +297,74 @@
             </div>
           </div>
 
-<div class="rounded-2xl border border-stone-200 bg-white p-6">
-  <h3 class="font-medium text-stone-900">
-    Si este libro te ha marcado, como a mí,
-  </h3>
+          <div class="mt-6 rounded-2xl border border-stone-200 bg-white p-6">
+            <h3 class="font-medium text-stone-900">Si este libro te ha marcado, como a mí,</h3>
+            <p class="mt-2 text-sm text-stone-700">
+              déjame algo bonito por aquí. Tu reseña ayuda a que esta historia siga caminando.
+            </p>
 
-  <p class="mt-2 text-sm text-stone-700">
-    déjame algo bonito por aquí.  
-    Tu reseña ayuda a que esta historia siga caminando.
-  </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <a href="https://www.goodreads.com/book/show/244794157-sin-mapa-y-con-patas"
+                 target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-800">
+                Goodreads
+              </a>
 
-  <div class="mt-4 flex flex-wrap gap-3">
-  <a
-    href="https://www.goodreads.com/book/show/244794157-sin-mapa-y-con-patas"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="inline-flex items-center rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-800"
-  >
-    Goodreads
-  </a>
+              <a href="https://amzn.eu/d/i0E84tu"
+                 target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition hover:bg-stone-100">
+                Reseña en Amazon
+              </a>
+            </div>
+          </div>
 
-  <a
-    href="https://amzn.eu/d/i0E84tu"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="inline-flex items-center rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition hover:bg-stone-100"
-  >
-    Reseña en Amazon
-  </a>
-</div>
-
-
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="border-t border-stone-200/70">
     <div class="mx-auto max-w-6xl px-4 py-12">
       <h2 class="text-2xl font-semibold tracking-tight text-stone-900">Preguntas frecuentes</h2>
+
       <div class="mt-6 grid gap-4 lg:grid-cols-2">
         <details class="rounded-2xl border border-stone-200 bg-white p-5">
           <summary class="cursor-pointer font-medium text-stone-900">¿Dónde puedo conseguir el libro?</summary>
-     <div class="space-y-3 text-stone-700">
-  <p>Puedes conseguirlo aquí:</p>
-
-  <ul class="space-y-2">
-    <li>
-      <a
-        href="https://amzn.eu/d/6s1Dqhv"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-medium text-stone-900 underline hover:text-stone-600"
-      >
-        Amazon España
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://a.co/d/hY4hd5m"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-medium text-stone-900 underline hover:text-stone-600"
-      >
-        Amazon México
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://a.co/d/fVudOfi"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-medium text-stone-900 underline hover:text-stone-600"
-      >
-        Amazon Estados Unidos
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://www.casadellibro.com/libro-sin-mapa-y-con-patas/9791370291372/17810913"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-medium text-stone-900 underline hover:text-stone-600"
-      >
-        Casa del Libro (España)
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://www.gandhi.com.mx/sin-mapa-y-con-patas-9791370291372/p?srsltid=AfmBOop3mcKDjVYXPxjbfGmb6ouzMh3MCPeLuJjPJz6orMV9cjJesLR7"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="font-medium text-stone-900 underline hover:text-stone-600"
-      >
-        Librerías Gandhi (México)
-      </a>
-    </li>
-  </ul>
-</div>
-
-
+          <div class="mt-3 space-y-3 text-stone-700">
+            <p>Puedes conseguirlo aquí:</p>
+            <ul class="space-y-2">
+              <li><a href="https://amzn.eu/d/6s1Dqhv" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-900 underline hover:text-stone-600">Amazon España</a></li>
+              <li><a href="https://a.co/d/hY4hd5m" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-900 underline hover:text-stone-600">Amazon México</a></li>
+              <li><a href="https://a.co/d/fVudOfi" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-900 underline hover:text-stone-600">Amazon Estados Unidos</a></li>
+              <li><a href="https://www.casadellibro.com/libro-sin-mapa-y-con-patas/9791370291372/17810913" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-900 underline hover:text-stone-600">Casa del Libro (España)</a></li>
+              <li><a href="https://www.gandhi.com.mx/sin-mapa-y-con-patas-9791370291372/p?srsltid=AfmBOop3mcKDjVYXPxjbfGmb6ouzMh3MCPeLuJjPJz6orMV9cjJesLR7" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-900 underline hover:text-stone-600">Librerías Gandhi (México)</a></li>
+            </ul>
+          </div>
         </details>
 
         <details class="rounded-2xl border border-stone-200 bg-white p-5">
           <summary class="cursor-pointer font-medium text-stone-900">¿Hay versión digital?</summary>
-         <p class="text-stone-700">
-  <strong>Sí.</strong> Estará disponible muy próximamente.
-</p>
+          <p class="mt-3 text-stone-700"><strong>Sí.</strong> Estará disponible muy próximamente.</p>
         </details>
 
         <details class="rounded-2xl border border-stone-200 bg-white p-5">
           <summary class="cursor-pointer font-medium text-stone-900">¿Haces presentaciones / firmas?</summary>
-          <p class="mt-3 text-sm text-stone-700 leading-relaxed">
-            Sí. Escríbeme con ciudad, fecha tentativa, aforo y dinámica (café, librería, club de lectura, etc.).
-          </p>
+          <p class="mt-3 text-sm text-stone-700 leading-relaxed">Sí. Escríbeme con ciudad, fecha tentativa, aforo y dinámica (café, librería, club de lectura, etc.).</p>
         </details>
 
         <details class="rounded-2xl border border-stone-200 bg-white p-5">
           <summary class="cursor-pointer font-medium text-stone-900">¿Puedo contactarte para prensa o colaboración?</summary>
-          <p class="mt-3 text-sm text-stone-700 leading-relaxed">
-            Claro. Usa el formulario de abajo o envíame un correo directo a <strong>loreliojeda@gmail.com</strong>.
-          </p>
+          <p class="mt-3 text-sm text-stone-700 leading-relaxed">Claro. Usa el formulario de abajo o envíame un correo directo a <strong>loreliojeda@gmail.com</strong>.</p>
         </details>
       </div>
     </div>
   </section>
 
-<!-- Contacto -->
   <!-- Contacto -->
   <section id="contacto" class="border-t border-stone-200/70">
     <div class="mx-auto max-w-6xl px-4 py-12">
       <div class="grid gap-10 lg:grid-cols-12">
-        <!-- Texto lado izquierdo -->
         <div class="lg:col-span-5">
           <h2 class="text-2xl font-semibold tracking-tight text-stone-900">Contacto</h2>
           <p class="mt-3 text-stone-700 leading-relaxed">
@@ -605,23 +375,13 @@
           <div class="mt-6 rounded-2xl border border-stone-200 bg-white p-5">
             <p class="text-xs uppercase tracking-wide text-stone-500">Información útil (opcional)</p>
             <ul class="mt-3 space-y-2 text-sm text-stone-700">
-              <li class="flex gap-2">
-                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-                Ciudad y fecha tentativa
-              </li>
-              <li class="flex gap-2">
-                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-                Tipo de evento (presentación, firma, charla)
-              </li>
-              <li class="flex gap-2">
-                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>
-                Duración y aforo
-              </li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Ciudad y fecha tentativa</li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Tipo de evento (presentación, firma, charla)</li>
+              <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-stone-800"></span>Duración y aforo</li>
             </ul>
           </div>
         </div>
 
-        <!-- Form lado derecho -->
         <div class="lg:col-span-7">
           <form
             id="contactForm"
@@ -629,67 +389,41 @@
             method="POST"
             class="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm"
           >
-            <!-- Opcional pero recomendado -->
             <input type="hidden" name="_subject" value="Nuevo mensaje — Sin mapa y con patas">
 
             <div class="grid gap-4 sm:grid-cols-2">
               <div>
                 <label for="nombre" class="text-sm font-medium text-stone-900">Nombre *</label>
-                <input
-                  id="nombre"
-                  name="nombre"
-                  type="text"
-                  required
+                <input id="nombre" name="nombre" type="text" required
                   class="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none focus:border-stone-900"
-                  placeholder="Tu nombre"
-                />
+                  placeholder="Tu nombre" />
               </div>
 
               <div>
                 <label for="email" class="text-sm font-medium text-stone-900">Correo *</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
+                <input id="email" name="email" type="email" required
                   class="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none focus:border-stone-900"
-                  placeholder="tucorreo@ejemplo.com"
-                />
+                  placeholder="tucorreo@ejemplo.com" />
               </div>
             </div>
 
             <div class="mt-4">
               <label for="asunto" class="text-sm font-medium text-stone-900">Asunto *</label>
-              <input
-                id="asunto"
-                name="asunto"
-                type="text"
-                required
+              <input id="asunto" name="asunto" type="text" required
                 class="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none focus:border-stone-900"
-                placeholder="Presentación del libro / Colaboración / Prensa / Otro"
-              />
+                placeholder="Presentación del libro / Colaboración / Prensa / Otro" />
             </div>
 
             <div class="mt-4">
               <label for="mensaje" class="text-sm font-medium text-stone-900">Mensaje *</label>
-              <textarea
-                id="mensaje"
-                name="mensaje"
-                rows="6"
-                required
+              <textarea id="mensaje" name="mensaje" rows="6" required
                 class="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none focus:border-stone-900"
-                placeholder="Cuéntame tu idea, ciudad, fecha y detalles."
-              ></textarea>
+                placeholder="Cuéntame tu idea, ciudad, fecha y detalles."></textarea>
             </div>
 
             <div class="mt-4 flex items-start gap-3">
-              <input
-                id="consentimiento"
-                name="consentimiento"
-                type="checkbox"
-                class="mt-1 h-4 w-4 rounded border-stone-300"
-                required
-              />
+              <input id="consentimiento" name="consentimiento" type="checkbox"
+                class="mt-1 h-4 w-4 rounded border-stone-300" required />
               <label for="consentimiento" class="text-xs text-stone-600 leading-relaxed">
                 Acepto que mis datos se usen únicamente para responder este mensaje.
               </label>
@@ -700,28 +434,19 @@
                 Respuesta directa también en: <strong class="text-stone-700">loreliojeda@gmail.com</strong>
               </p>
 
-              <button
-                id="submitBtn"
-                type="submit"
-                class="inline-flex items-center justify-center rounded-xl bg-stone-900 px-5 py-3 text-sm font-medium text-white hover:bg-stone-800 disabled:opacity-60"
-              >
+              <button id="submitBtn" type="submit"
+                class="inline-flex items-center justify-center rounded-xl bg-stone-900 px-5 py-3 text-sm font-medium text-white hover:bg-stone-800 disabled:opacity-60">
                 Enviar mensaje
               </button>
             </div>
 
-            <!-- Mensaje de estado (Gracias / Error) -->
-            <div
-              id="formStatus"
-              class="mt-4 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800"
-              hidden
-            ></div>
+            <div id="formStatus" class="mt-4 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800" hidden></div>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Script: evita que te saque de la web y muestra “Gracias” -->
   <script>
     const form = document.getElementById("contactForm");
     const status = document.getElementById("formStatus");
@@ -730,7 +455,6 @@
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
-      // reset estilos por si antes hubo error
       status.classList.remove("border-red-200", "bg-red-50", "text-red-800");
       status.classList.add("border-green-200", "bg-green-50", "text-green-800");
 
@@ -749,21 +473,18 @@
         if (response.ok) {
           form.reset();
           status.hidden = false;
-          status.textContent =
-            "✨ Gracias por contactarme. Tu mensaje ya me llegó y te contestaré a la brevedad.";
+          status.textContent = "✨ Gracias por contactarme. Tu mensaje ya me llegó y te contestaré a la brevedad.";
         } else {
           status.hidden = false;
           status.classList.remove("border-green-200", "bg-green-50", "text-green-800");
           status.classList.add("border-red-200", "bg-red-50", "text-red-800");
-          status.textContent =
-            "Ups… hubo un problema al enviar el mensaje. Inténtalo de nuevo o escríbeme directo a loreliojeda@gmail.com.";
+          status.textContent = "Ups… hubo un problema al enviar el mensaje. Inténtalo de nuevo o escríbeme directo a loreliojeda@gmail.com.";
         }
       } catch (error) {
         status.hidden = false;
         status.classList.remove("border-green-200", "bg-green-50", "text-green-800");
         status.classList.add("border-red-200", "bg-red-50", "text-red-800");
-        status.textContent =
-          "Error de conexión. Por favor intenta más tarde o escríbeme a loreliojeda@gmail.com.";
+        status.textContent = "Error de conexión. Por favor intenta más tarde o escríbeme a loreliojeda@gmail.com.";
       }
 
       submitBtn.disabled = false;
@@ -771,51 +492,13 @@
     });
   </script>
 
-
   <!-- Footer -->
-<footer class="border-t border-stone-200/70 bg-white">
-  <div class="mx-auto max-w-6xl px-4 py-10 text-center">
-
-    <!-- Sello -->
-    <img 
-      src="Sello.jpg" 
-      alt="Sello Sin mapa y con patas"
-      class="mx-auto mb-6 w-28 opacity-90"
-    />
-
-    <!-- Mensaje -->
-    <p class="text-stone-700 mb-4">
-      Gracias por caminar conmigo.
-    </p>
-
-    <!-- Copyright -->
-    <p class="text-xs text-stone-500">
-      © 2026 Lorelí Ojeda Pulido · Sin mapa y con patas
-    </p>
-
-  </div>
-</footer>
-
-
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
-
-<!-- Huellas decorativas -->
-<div class="huellas-scroll"></div>
-
-<script>
-  const huellas = document.querySelector(".huellas-scroll");
-  window.addEventListener("scroll", () => {
-    if (!huellas) return;
-    huellas.style.transform = `translateY(${window.scrollY * 0.1}px)`;
-  });
-</script>
-
-
-
-
+  <footer class="border-t border-stone-200/70 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-10 text-center">
+      <img src="Sello.jpg" alt="Sello Sin mapa y con patas" class="mx-auto mb-6 w-28 opacity-90" />
+      <p class="text-stone-700 mb-4">Gracias por caminar conmigo.</p>
+      <p class="text-xs text-stone-500">© 2026 Lorelí Ojeda Pulido · Sin mapa y con patas</p>
+    </div>
+  </footer>
 </body>
 </html>
